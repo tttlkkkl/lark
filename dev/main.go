@@ -1,7 +1,4 @@
-# lark
-飞书 api 简单封装，按需扩展
-
-```go
+package main
 
 // 服务器交互测试
 import (
@@ -62,4 +59,3 @@ func main() {
 		log.Fatalln(err)
 	}
 }
-```
