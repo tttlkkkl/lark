@@ -1,6 +1,9 @@
 package lark
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"strings"
+)
 
 // MessageHeader 消息公共头部
 type MessageHeader struct {
@@ -24,6 +27,11 @@ type MessageResponse struct {
 		InvalidOpenIDs       StringArray `json:"invalid_open_ids"`
 		InvalidUserIDs       StringArray `json:"invalid_user_ids"`
 	} `json:"data"`
+}
+
+// IsSuccess 是否成功
+func (m *MessageResponse) IsSuccess() bool {
+	return m.Code == 0 && strings.ToLower(m.Message) == "ok"
 }
 
 // MessageCard 卡片消息
