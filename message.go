@@ -4,16 +4,11 @@ import "encoding/json"
 
 // MessageHeader 消息公共头部
 type MessageHeader struct {
-	OpenID      string  `json:"open_id"`
-	UserID      string  `json:"user_id"`
-	Email       string  `json:"email"`
-	ChatID      string  `json:"chat_id"`
-	RootID      string  `json:"root_id"`
-	MessageType MsgType `json:"msg_type"`
-}
-
-// MessageBatchHeader 消息公共头部
-type MessageBatchHeader struct {
+	OpenID        string      `json:"open_id"`
+	UserID        string      `json:"user_id"`
+	Email         string      `json:"email"`
+	ChatID        string      `json:"chat_id"`
+	RootID        string      `json:"root_id"`
 	DepartmentIDs StringArray `json:"department_ids"`
 	OpenIDs       StringArray `json:"open_ids"`
 	UserIDs       StringArray `json:"user_ids"`
