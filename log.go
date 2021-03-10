@@ -11,5 +11,5 @@ func init() {
 	// 打印文件等详细信息，这个对性能有影响
 	log.SetReportCaller(true)
 	log.SetLevel(log.DebugLevel)
-	Log = log.WithField("pkg", "ko-socket")
+	Log = log.WithField("pkg", "lark")
 }

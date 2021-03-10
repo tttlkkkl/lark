@@ -41,6 +41,29 @@ type MessageCard struct {
 	UpdateMulti bool        `json:"update_multi"`
 }
 
+// Message 一般消息
+type Message struct {
+	MessageHeader
+	Content Content `json:"content"`
+}
+
+// Content 一般消息内容
+type Content struct {
+	Text        string `json:"text,omitempty"`
+	ImageKey    string `json:"image_key,omitempty"`
+	ShareChatID string `json:"share_chat_id,omitempty"`
+	Post        Post   `json:"post,omitempty"`
+}
+
+// Post 富文本基本结构
+type Post map[string]PostContent
+
+// PostContent 富文本消息内容结构
+type PostContent struct {
+	Title   string      `json:"title"`
+	Content interface{} `json:"content"`
+}
+
 // NewMessageCard 实例化一个卡片消息
 // card 卡片结构 json 字符串
 // isShare 是否共享卡片即 update_multi
@@ -56,4 +79,9 @@ func NewMessageCard(card string, isShare bool) (MessageCard, error) {
 	}
 	m.Card = cd
 	return m, nil
+}
+
+// NewMessage 初始化一般消息结构
+func NewMessage() Message {
+	return Message{}
 }
