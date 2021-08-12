@@ -1,12 +1,14 @@
 package lark
 
 const (
-	// accessTokenURL accessToken 接口地址
-	accessTokenURL      = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
-	messageSendURL      = "https://open.feishu.cn/open-apis/message/v4/send/"
-	messageBatchSendURL = "https://open.feishu.cn/open-apis/message/v4/batch_send/"
-	chatListURL         = "https://open.feishu.cn/open-apis/chat/v4/list"
-	cardUpdateURL       = "https://open.feishu.cn/open-apis/interactive/v1/card/update/"
+	// appAccessTokenURL accessToken 接口地址
+	appAccessTokenURL    = "https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal/"
+	tenantAccessTokenURL = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal/"
+	messageSendURL       = "https://open.larksuite.com/open-apis/message/v4/send/"
+	messageBatchSendURL  = "https://open.larksuite.com/open-apis/message/v4/batch_send/"
+	chatListURL          = "https://open.larksuite.com/open-apis/chat/v4/list"
+	cardUpdateURL        = "https://open.larksuite.com/open-apis/interactive/v1/card/update/"
+	getUserURL           = "https://open.larksuite.com/open-apis/contact/v3/users/%s"
 )
 
 // MT 事件消息类型

@@ -2,26 +2,33 @@ package lark
 
 import (
 	"fmt"
+	"log"
+	"reflect"
 	"testing"
 )
 
-func TestLark_SendMessage(t *testing.T) {
-	chat, err := NewLark(
+var lark *Lark
+
+func init() {
+	c, err := NewLark(
 		"xx",
 		"xx",
 		SetReceiveMessageAPI("xx", "xx"),
 	)
 	if err != nil {
-		t.Error(err)
+		log.Fatalln(err)
 		return
 	}
+	lark = c
+}
+func TestLark_SendMessage(t *testing.T) {
 	msg, err := NewMessageCard(card, false)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	msg.ChatID = "oc_299448deb4a1cd8c0e3bf4b8e13af467"
-	rs := chat.SendMessage(msg)
+	rs := lark.SendMessage(msg)
 	fmt.Println("======>>>>>", rs)
 }
 
@@ -211,3 +218,32 @@ var updateCard = `{
 	  ]
 	}
   }`
+
+func TestLark_GetUser(t *testing.T) {
+	type args struct {
+		req UserRequest
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantRep UserResponse
+	}{
+		{
+			name: "test get user",
+			args: args{req: UserRequest{
+				UserID:     "4f8geeg7",
+				UserIDType: UserIDTypeUserID,
+			}},
+			wantRep: UserResponse{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotRep := lark.GetUser(tt.args.req)
+			fmt.Printf("====user==>%+v", gotRep)
+			if !reflect.DeepEqual(gotRep, tt.wantRep) {
+				t.Errorf("Lark.GetUser() = %v, want %v", gotRep, tt.wantRep)
+			}
+		})
+	}
+}

@@ -22,9 +22,24 @@ type PostParamsAccessToken struct {
 	AppSecret string `json:"app_secret"`
 }
 
-// GetAccessToken 获取accessToken
-func (l *Lark) GetAccessToken() (string, error) {
-	token := l.Cache.Get(l.getAccessTokenCacheKey())
+// GetAppAccessToken 获取 App Access Token
+func (l *Lark) GetAppAccessToken() (string, error) {
+	return l.getAccessToken(appAccessTokenURL, "a")
+}
+
+// GetTenantAccessToken 获取 tenantAccessToken
+func (l *Lark) GetTenantAccessToken() (string, error) {
+	return l.getAccessToken(tenantAccessTokenURL, "t")
+}
+
+// GetUserAccessToken 获取 tenantAccessToken
+func (l *Lark) GetUserAccessToken() (string, error) {
+	return l.getAccessToken(tenantAccessTokenURL, "u")
+}
+
+// getAccessToken 获取accessToken
+func (l *Lark) getAccessToken(url, k string) (string, error) {
+	token := l.Cache.Get(l.getAccessTokenCacheKey(k))
 	if token != nil {
 		accessToken, ok := token.(string)
 		if ok {
@@ -36,7 +51,7 @@ func (l *Lark) GetAccessToken() (string, error) {
 		AppSecret: l.AppSecret,
 	}
 	pmBt, _ := json.Marshal(&pm)
-	req, err := http.NewRequest("POST", accessTokenURL, bytes.NewBuffer(pmBt))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(pmBt))
 	if err != nil {
 		return "", err
 	}
@@ -59,10 +74,10 @@ func (l *Lark) GetAccessToken() (string, error) {
 		return "", err
 	}
 	rep.ExpiresIn = rep.ExpiresIn - 30
-	l.Cache.Set(l.getAccessTokenCacheKey(), rep.AccessToken, time.Second*time.Duration(rep.ExpiresIn))
+	l.Cache.Set(l.getAccessTokenCacheKey(k), rep.AccessToken, time.Second*time.Duration(rep.ExpiresIn))
 	return rep.AccessToken, nil
 }
 
-func (l *Lark) getAccessTokenCacheKey() string {
-	return fmt.Sprintf("at-%s", l.AppID)
+func (l *Lark) getAccessTokenCacheKey(k string) string {
+	return fmt.Sprintf("%s-%s", k, l.AppID)
 }
