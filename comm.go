@@ -28,6 +28,6 @@ func (s *StringArray) UnmarshalJSON(b []byte) error {
 }
 
 // IsSuccess 是否成功
-func (m *Response) IsSuccess() bool {
-	return m.Code == 0 && strings.ToLower(m.Message) == "ok"
+func (r *Response) IsSuccess() bool {
+	return r.Code == 0 && (strings.ToLower(r.Message) == "ok" || strings.ToLower(r.Message) == "success")
 }
