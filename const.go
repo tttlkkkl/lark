@@ -9,6 +9,7 @@ const (
 	chatListURL          = "https://open.larksuite.com/open-apis/chat/v4/list"
 	cardUpdateURL        = "https://open.larksuite.com/open-apis/interactive/v1/card/update/"
 	getUserURL           = "https://open.larksuite.com/open-apis/contact/v3/users/%s"
+	uploudImaesURL       = "https://open.larksuite.com/open-apis/im/v1/images"
 )
 
 // MT 事件消息类型
@@ -35,4 +36,14 @@ const (
 	MsgTypePOST MsgType = "post"
 	// MsgTypeShareChat 群名片消息
 	MsgTypeShareChat MsgType = "share_chat"
+)
+
+// ImageType 图片用途类型
+type ImageType string
+
+const (
+	// ImageTypeMessage 图片用于发送消息
+	ImageTypeMessage = "message"
+	// ImageTypeAvatar 图片用作头像
+	ImageTypeAvatar = "avatar"
 )
