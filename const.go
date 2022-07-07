@@ -10,6 +10,8 @@ const (
 	cardUpdateURL        = "https://open.larksuite.com/open-apis/interactive/v1/card/update/"
 	getUserURL           = "https://open.larksuite.com/open-apis/contact/v3/users/%s"
 	uploudImaesURL       = "https://open.larksuite.com/open-apis/im/v1/images"
+	copyFileURL          = "https://open.larksuite.com/drive/explorer/v2/file/copy/files/%s"
+	updatePermissionsURL = "https://open.larksuite.com/drive/v1/permissions/%s/public?type=%s"
 )
 
 // MT 事件消息类型
@@ -46,4 +48,16 @@ const (
 	ImageTypeMessage = "message"
 	// ImageTypeAvatar 图片用作头像
 	ImageTypeAvatar = "avatar"
+)
+
+// DocType 云文档类型
+type DocType string
+
+const (
+	DocTypeDoc     DocType = "doc"
+	DocTypeSheet   DocType = "sheet"
+	DocTypeDocx    DocType = "docx"
+	DocTypeFile    DocType = "file"
+	DocTypeWiki    DocType = "wiki"
+	DocTypeBitable DocType = "bitable"
 )

@@ -106,6 +106,50 @@ func (l *Lark) GetUser(req UserRequest) (rep UserResponse) {
 	return
 }
 
+// copyFileURL          = "https://open.larksuite.com/drive/explorer/v2/file/copy/files/%s"
+// updatePermissionsURL = "https://open.larksuite.com/drive/v1/permissions/%s/public?type=%s"
+func (l *Lark) CopyDocument(token string, req CopyRequest) CopyResponse {
+	url := fmt.Sprintf(copyFileURL, token)
+	rep := CopyResponse{}
+	s, err := json.Marshal(req)
+	if err != nil {
+		Log.Error("消息序列化失败", err)
+		rep.Code = -1
+		rep.Message = err.Error()
+		return rep
+	}
+	reqBody := bytes.NewBuffer(s)
+	body, err := l.httpPost(url, reqBody)
+	err = json.Unmarshal(body, &rep)
+	if err != nil {
+		rep.Code = -1
+		rep.Message = err.Error()
+		return rep
+	}
+	return rep
+}
+
+func (l *Lark) UpdatePermissionPublic(token string, fileType DocType, req UpdatePermissionRequest) UpdatePermissionResponse {
+	url := fmt.Sprintf(updatePermissionsURL, token, fileType)
+	rep := UpdatePermissionResponse{}
+	s, err := json.Marshal(req)
+	if err != nil {
+		Log.Error("消息序列化失败", err)
+		rep.Code = -1
+		rep.Message = err.Error()
+		return rep
+	}
+	reqBody := bytes.NewBuffer(s)
+	body, err := l.httpPost(url, reqBody)
+	err = json.Unmarshal(body, &rep)
+	if err != nil {
+		rep.Code = -1
+		rep.Message = err.Error()
+		return rep
+	}
+	return rep
+}
+
 func (l *Lark) send(url string, message interface{}) MessageResponse {
 	repBody := MessageResponse{}
 	s, err := json.Marshal(message)
