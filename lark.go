@@ -140,7 +140,7 @@ func (l *Lark) UpdatePermissionPublic(token string, fileType DocType, req Update
 		return rep
 	}
 	reqBody := bytes.NewBuffer(s)
-	body, err := l.httpPost(url, reqBody)
+	body, err := l.httpPatch(url, reqBody)
 	err = json.Unmarshal(body, &rep)
 	if err != nil {
 		rep.Code = -1
@@ -195,6 +195,22 @@ type CustomHeader struct {
 // TenantAccessToken 默认自动使用 TenantAccessToken 访问
 func (l *Lark) httpPost(url string, body io.Reader, h ...CustomHeader) ([]byte, error) {
 	req, err := http.NewRequest("POST", url, body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	l.setHeader(req, h...)
+	rep, err := l.HTTPClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer rep.Body.Close()
+	return ioutil.ReadAll(rep.Body)
+}
+
+// TenantAccessToken 默认自动使用 TenantAccessToken 访问
+func (l *Lark) httpPatch(url string, body io.Reader, h ...CustomHeader) ([]byte, error) {
+	req, err := http.NewRequest("PATCH", url, body)
 	if err != nil {
 		return nil, err
 	}
