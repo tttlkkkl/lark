@@ -36,7 +36,7 @@ func init() {
 		}
 		fmt.Println("--------->>>>>", m, err)
 		switch m.GetMessageType() {
-		case lark.MTEventCallback:
+		case "":
 			// 回调事件
 		}
 	})
