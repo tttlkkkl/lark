@@ -23,7 +23,7 @@ type Encrypt struct {
 type EventMessage struct {
 	Token       string `json:"token"`
 	Challenge   string `json:"challenge"`
-	MessageType MT     `json:"type"`
+	MessageType string `json:"type"`
 	UUID        string `json:"uuid"`
 	Ts          string `json:"ts"`
 	Event       Values `json:"event"`
@@ -53,7 +53,7 @@ type Header struct {
 	EventID    string        `json:"event_id"`
 	Token      string        `json:"token"`
 	CreateTime string        `json:"create_time"`
-	EventType  MT            `json:"event_type"`
+	EventType  string        `json:"event_type"`
 	TenantKey  string        `json:"tenant_key"`
 	AppID      string        `json:"app_id"`
 	ResourceID string        `json:"resource_id"`
@@ -150,7 +150,7 @@ func (c *CardMessage) GetToken() string {
 }
 
 // GetMessageType 获取事件消息类型
-func (e *EventMessage) GetMessageType() MT {
+func (e *EventMessage) GetMessageType() string {
 	if e.Schema == "2.0" {
 		return e.Header.EventType
 	}

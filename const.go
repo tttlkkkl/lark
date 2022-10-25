@@ -14,16 +14,6 @@ const (
 	updatePermissionsURL = "https://open.larksuite.com/open-apis/drive/v1/permissions/%s/public?type=%s"
 )
 
-// MT 事件消息类型
-type MT string
-
-const (
-	// MTURLVerification xx
-	MTURLVerification MT = "url_verification"
-	// MTEventCallback 回调事件
-	MTEventCallback MT = "event_callback"
-)
-
 // MsgType 消息类型
 type MsgType string
 
